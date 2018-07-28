@@ -31,3 +31,18 @@ class LambdaFunction(object):
             S3Bucket=s3_bucket,
             S3Key=s3_key
         )
+
+    def publish_version(self, code_sha_256):
+        """Publishes a version of the lambda function from the current snapshot of $LATEST
+
+        Args:
+            code_sha_256: The SHA256 hash of the deployment package to be published
+
+        Raises:
+            Exception: Any exception thrown by .publish_version(()
+
+        """
+        return self._lambda_function.publish_version(
+            FunctionName=self._name,
+            CodeSha256=code_sha_256
+        )

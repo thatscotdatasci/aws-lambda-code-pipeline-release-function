@@ -20,7 +20,10 @@ def update_function_code(code_pipeline_job):
     lambda_function = LambdaFunction(function_name)
     print(f'Created a Lambda function client for function with name: {function_name}')
 
-    lambda_function.update_function_code(bucket, key)
-    print(f'Updated Lamdbda function with name: {function_name}')
+    update_function_return = lambda_function.update_function_code(bucket, key)
+    print(f'Updated code of Lamdbda function with name: {function_name}')
+
+    version_publish_return = lambda_function.publish_version(update_function_return['CodeSha256'])
+    print(f'Published new Lamdbda function version: {version_publish_return["Version"]}')
 
     code_pipeline_job.put_job_success(f'Successfully updated Lamdbda function with name: {function_name}')
