@@ -46,3 +46,20 @@ class LambdaFunction(object):
             FunctionName=self._name,
             CodeSha256=code_sha_256
         )
+
+    def update_alias(self, alias_name, function_version):
+        """Updates the Lambda function version to which the given alias points
+
+        Args:
+            alias_name: The alias name
+            function_version: The Lambda function version which the alias should point to
+
+        Raises:
+            Exception: Any exception thrown by .update_alias(()
+
+        """
+        return self._lambda_function.update_alias(
+            FunctionName=self._name,
+            Name=alias_name,
+            FunctionVersion=function_version
+        )

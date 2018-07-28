@@ -26,4 +26,10 @@ def update_function_code(code_pipeline_job):
     version_publish_return = lambda_function.publish_version(update_function_return['CodeSha256'])
     print(f'Published new Lamdbda function version: {version_publish_return["Version"]}')
 
+    alias_name = code_pipeline_job.params['alias_name']
+    print(f'Alias name passed in user parameters: {alias_name}')
+
+    update_alias_return = lambda_function.update_alias(alias_name, version_publish_return["Version"])
+    print(f'Updated alias of Lamdbda function with name: {alias_name} to version: {version_publish_return["Version"]}')
+
     code_pipeline_job.put_job_success(f'Successfully updated Lamdbda function with name: {function_name}')
